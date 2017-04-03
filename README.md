@@ -1,6 +1,3 @@
-# censusgov
-Wrapper for Population Estimates APIs
-
 <div>
 <h1>censusgov</h1>
 
