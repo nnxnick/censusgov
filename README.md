@@ -23,7 +23,7 @@ API Call: api.census.gov/data/2013/language.html<br/><br/>
 <b>State population with age older than 18 years</b><br/>
 censusgov.censusapi.getpopulations18(string state)<br/>
 <b>State population</b><br/>
-censusgov.censusapi.getpopulations00(string state)><br/>
+censusgov.censusapi.getpopulations00(string state)<br/>
 API Call: api.census.gov/data/2016/pep/charagegroups<br/>
 
 <h3>censusgov.googleapis</h3>
