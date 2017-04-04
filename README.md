@@ -1,45 +1,49 @@
-<div>
-<h1>censusgov</h1>
 
-<h2><a href='http://take.ms/CJRyt' target='blank'>Class diagram</a><br/><br/></h2>
+# censusgov
 
-<h3>censusgov.censusapi</h3>
-Wrapper for <a href='https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html'>Population Estimates APIs</a><br/><br/>
+A sample project for create the statistic spreadsheet "Top-10 of populations county"
+Based on Population Estimates Program and uses current data on births, deaths, and migration to calculate population change since the most recent decennial census and produces a time series of estimates of population, demographic components of change, and housing units. The annual time series of estimates begins with the most recent decennial census data and extends to the vintage year. As each vintage of estimates includes all years since the most recent decennial census, the latest vintage of data available supersedes all previously-produced estimates for those dates
 
-<b><u>Population</u></b><br/>
-censusgov.censusapi.getpopulations() +2 overload<br/>
-API Call: api.census.gov/data/2016/pep/population<br/><br/>
+[Class diagram](http://take.ms/CJRyt)
 
-<b><u>Resident Population Change</u></b><br/><br/>
-censusgov.censusapi.getstats_birth_death() +2 overload<br/>
-API Call: api.census.gov/data/2016/pep/components<br/><br/>
+# censusgov.censusapi
+Wrapper for [Population Estimates APIs](https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html)
 
-<b><u>Detailed Language Spoke</u></b><br/>
-censusgov.censusapi.getstats_language() +2 overload<br/>
-API Call: api.census.gov/data/2013/language.html<br/><br/>
+## Population
+	censusgov.censusapi.getpopulations() +2 overloads
+Annual Population Estimates for the United States; States; Counties
+Source: U.S. Census Bureau, Population Division
+API Call: api.census.gov/data/2016/pep/population
+
+## Resident Population Change
+	censusgov.censusapi.getstats_birth_death() +2 overloads
+Annual Resident Population Estimates, Estimated Components of Resident Population Change, and Rates of the Components of Resident Population Change
+API Call: api.census.gov/data/2016/pep/components
+
+## Detailed Language Spoke
+	censusgov.censusapi.getstats_language() +2 overloads
+The number of speakers of languages spoken at home and the number of speakers of each language who speak English less than very well
+API Call: api.census.gov/data/2013/language
 
 
-<b><u>Demographic Characteristics Estimates by Age Groups</u></b><br/>
-<b>State population with age older than 18 years</b><br/>
-censusgov.censusapi.getpopulations18(string state)<br/>
-<b>State population</b><br/>
-censusgov.censusapi.getpopulations00(string state)<br/>
-API Call: api.census.gov/data/2016/pep/charagegroups<br/>
+## Demographic Characteristics Estimates by Age Groups
+	censusgov.censusapi.getpopulations00(string state) 
+### State population
+	censusgov.censusapi.getpopulations18(string state) 
+### State population with age older than 18 years
+API Call: api.census.gov/data/2016/pep/charagegroups
 
-<h3>censusgov.googleapis</h3>
-Launch google spreadsheet api<br/><br/>
+# censusgov.googleapis
+Launch google spreadsheet api
 
-Note. Please read lines 39-42 in file googleapis.cs<br/>
-<div>
-// if you have own client_secret.json file<br/>
-// you need fill and uncomment next two lines<br/>
-// client_secret = "<path to own client_secret.json file>";<br/>
-// ApplicationName = "<own application name>";<br/>
-</div>
-<br/>
+Note. Please read lines 43-51 in file googleapis.cs
+	// if you have own client_secret.json file
+	// you need fill and uncomment next two lines
+	// client_secret = "<path to own client_secret.json file>";
+	// ApplicationName = "<own application name>";
 
-<b><u>Create spreadsheet Top-10 of populations county</u></b><br/>
+## Create spreadsheet Top-10 of populations county
 censusgov.googleapis.creategooglesheettop10(ref string spsheedid, ref string spsheeturl)
 
-<a href='https://docs.google.com/spreadsheets/d/1jMJ8IA00O7iiluyb7SJwAdNi5UnxEY6uH0VTWdnlLT8' target='blank'>As example</a>
-</div>
+[As example spreadsheet](https://docs.google.com/spreadsheets/d/1jMJ8IA00O7iiluyb7SJwAdNi5UnxEY6uH0VTWdnlLT8)
+
