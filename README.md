@@ -6,7 +6,7 @@ Based on Population Estimates Program and uses current data on births, deaths, a
 
 [Class diagram](http://take.ms/CJRyt)
 
-# censusgov.censusapi
+# [censusgov.censusapi](https://github.com/nnxnick/censusgov/blob/master/censusgov/censusgov/censusapi.cs)
 Wrapper for [Population Estimates APIs](https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html)
 
 ## Population
