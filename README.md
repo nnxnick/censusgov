@@ -12,38 +12,38 @@ Wrapper for [Population Estimates APIs](https://www.census.gov/data/developers/d
 ## Population
 	censusgov.censusapi.getpopulations() +2 overloads
 Annual Population Estimates for the United States; States; Counties
-Source: U.S. Census Bureau, Population Division
+Source: U.S. Census Bureau, Population Division 
 API Call: api.census.gov/data/2016/pep/population
 
 ## Resident Population Change
 	censusgov.censusapi.getstats_birth_death() +2 overloads
-Annual Resident Population Estimates, Estimated Components of Resident Population Change, and Rates of the Components of Resident Population Change
+Annual Resident Population Estimates, Estimated Components of Resident Population Change, and Rates of the Components of Resident Population Change 
 API Call: api.census.gov/data/2016/pep/components
 
 ## Detailed Language Spoke
 	censusgov.censusapi.getstats_language() +2 overloads
-The number of speakers of languages spoken at home and the number of speakers of each language who speak English less than very well
+The number of speakers of languages spoken at home and the number of speakers of each language who speak English less than very well 
 API Call: api.census.gov/data/2013/language
 
 
 ## Demographic Characteristics Estimates by Age Groups
+### State population (
 	censusgov.censusapi.getpopulations00(string state) 
-### State population
-	censusgov.censusapi.getpopulations18(string state) 
 ### State population with age older than 18 years
+	censusgov.censusapi.getpopulations18(string state) 
 API Call: api.census.gov/data/2016/pep/charagegroups
 
 # censusgov.googleapis
 Launch google spreadsheet api
 
-Note. Please read lines 43-51 in file googleapis.cs
-	// if you have own client_secret.json file
-	// you need fill and uncomment next two lines
-	// client_secret = "<path to own client_secret.json file>";
-	// ApplicationName = "<own application name>";
+Note. Please read lines 43-51 in file googleapis.cs<br/>
+	// if you have own client_secret.json file <br/>
+	// you need fill and uncomment next two lines<br/>
+	// client_secret = "path to own client_secret.json file";<br/>
+	// ApplicationName = "own application name";<br/>
 
 ## Create spreadsheet Top-10 of populations county
-censusgov.googleapis.creategooglesheettop10(ref string spsheedid, ref string spsheeturl)
+censusgov.googleapis.creategooglesheettop10(ref string spsheedid, ref string spsheeturl) 
 
 [As example spreadsheet](https://docs.google.com/spreadsheets/d/1jMJ8IA00O7iiluyb7SJwAdNi5UnxEY6uH0VTWdnlLT8)
 
