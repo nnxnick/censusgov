@@ -7,11 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Google.Apis.Auth.OAuth2;
+using Google.Apis.Drive.v3;
+using Google.Apis.Drive.v3.Data;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Data = Google.Apis.Sheets.v4.Data;
+using DData = Google.Apis.Drive.v3.Data;
 using System.Threading;
 
 namespace censusgov
@@ -24,14 +27,20 @@ namespace censusgov
 		static string spreadsheetId = "";
 		static string spreadsheetUrl = "";
 		static UserCredential credential;
-		static string ApplicationName = "updateTEAraw";
-		static string[] Scopes = { SheetsService.Scope.Spreadsheets };
+		static string ApplicationName = "apigoogle";
+		static string[] Scopes = { SheetsService.Scope.Spreadsheets,
+					DriveService.Scope.Drive,
+					DriveService.Scope.DriveMetadata,
+					DriveService.Scope.DriveAppdata,
+					DriveService.Scope.DriveFile,
+					SheetsService.Scope.Drive
+		};
 		/// <summary>
 		/// Set Google credential
 		/// </summary>
 		static void setcredentials()
 		{
-			// this file nnxnick_client_secret.json linked to test application updateTEAraw
+			// this file nnxnick_client_secret.json linked to test application apigoogle
 			// for account nikolayn.n.naumenko@gmail.com
 			// file location - in a folder with the executable module, folder .credentials
 			string client_secret = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
@@ -40,6 +49,8 @@ namespace censusgov
 			// you need fill and uncomment next two lines
 			// client_secret = "<path to own client_secret.json file>";
 			// ApplicationName = "<own application name>";
+
+			/* */
 			using (var stream =
 				new FileStream(client_secret, FileMode.Open, FileAccess.Read))
 			{
@@ -47,7 +58,6 @@ namespace censusgov
 					System.Environment.SpecialFolder.Personal);
 				credPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
 					".credentials\\sheets.googleapis.com-dotnet-quickstart.json");
-
 				credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
 					GoogleClientSecrets.Load(stream).Secrets,
 					Scopes,
@@ -55,6 +65,7 @@ namespace censusgov
 					CancellationToken.None,
 					new FileDataStore(credPath, true)).Result;
 			}
+			/* */
 		}
 		/// <summary>
 		/// Create spreadsheet Top-10 of populations county
@@ -75,7 +86,7 @@ namespace censusgov
 			List<population> xpop = helper.getpoplistfromjson(xfs);
 			if (xpop != null)
 			{
-				top10 = xpop.OrderByDescending(x => x.POP).Take(10).ToList();
+				top10 = xpop.OrderByDescending(x => x.POP).Take(10).ToList(); //10
 			}
 			if (top10 != null)
 			{
@@ -127,6 +138,8 @@ namespace censusgov
 				var service = new SheetsService(new BaseClientService.Initializer()
 				{
 					HttpClientInitializer = credential,
+					//HttpClientInitializer = sacredential,
+					//ApiKey = apikey,
 					ApplicationName = ApplicationName,
 				});
 				// Create Spreadsgeet
@@ -169,7 +182,10 @@ namespace censusgov
 								Thread.Sleep(50000); // Sleep 50 * 3 seconds while clear limit 100s
 							}
 							else
+							{
+								Console.WriteLine("An error occurred: " + ex.ToString());
 								break;
+							}
 						}
 					}
 				}
@@ -457,6 +473,48 @@ namespace censusgov
 					}
 				}
 			}
+			if (spreadsheetId != "")
+			{
+				var service = new DriveService(new BaseClientService.Initializer()
+				{
+					HttpClientInitializer = credential,
+					ApplicationName = ApplicationName,
+				});
+				InsertPermission(service, spreadsheetId, null, "anyone", "reader");
+			}
+		}
+		///
+		/// Insert a new permission.
+		/// service - Drive API service instance. 
+		/// fileId - ID of the file to insert permission for.
+		/// emailuser - User or group e-mail address, domain name or null for "default" type.
+		/// type - The value "user", "group", "domain" or "anyone".
+		/// role - The value "owner", "writer" or "reader".
+		/// The inserted permission, null is returned if an API error occurred
+
+		public static Permission InsertPermission(DriveService service,
+			string fileId,
+			string emailuser,
+			string type,
+			string role)
+		{
+			Permission newPermission = new Permission();
+			if (emailuser != null && emailuser != "")
+				newPermission.EmailAddress = emailuser;
+			newPermission.Type = type;
+			newPermission.Role = role;
+			try
+			{
+				PermissionsResource.CreateRequest request =
+					service.Permissions.Create(newPermission, fileId);
+				request.Fields = "id";
+				return request.Execute();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("An error occurred: " + e.ToString());
+			}
+			return null;
 		}
 	}
 }
