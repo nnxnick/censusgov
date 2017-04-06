@@ -73,14 +73,13 @@ namespace censusgov
 		/// </summary>
 		/// <param name="spsheedid"></param>
 		/// <param name="spsheeturl"></param>
-		public static void creategooglesheettop10(ref string spsheedid, ref string spsheeturl)
+		public static void creategooglesheettop10(Icensusapi xco,ref string spsheedid, ref string spsheeturl)
 		{
 			//define exist spreadsheet
 			spreadsheetId = spsheedid;
 			spreadsheetUrl = spsheeturl;
 
 			//get the top 10 most populous county in the united states
-			censusapi xco = new censusapi();
 			List<population> top10 = null;
 			string xfs = xco.getpopulations();
 			List<population> xpop = helper.getpoplistfromjson(xfs);

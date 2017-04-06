@@ -14,7 +14,7 @@ namespace censusgov
 	/// Population Estimates APIs (Census Bureau's Population Estimates Program)
 	/// https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html
 	/// </summary>
-	public class censusapi
+	public class censusapi : Icensusapi
 	{
 		/// <summary>
 		/// stub for ignore wrong x.509 certificate
